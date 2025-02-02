@@ -1,4 +1,7 @@
-conda create -n headcraft python==3.9
+# conda create -n headcraft python==3.9
+
+source /rhome/asevastopolsky/miniconda3/etc/profile.d/conda.sh    # to be able to activate conda env in a bash script
+
 conda activate headcraft
 
 pip install numpy==1.23     # this version is needed for chumpy to work correctly

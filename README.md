@@ -33,7 +33,7 @@ To clone the repository with a StyleGAN submodule, execute the following command
 git clone --recursive https://github.com/seva100/headcraft.git
 ```
 
-The script below creates a Conda environment with Python==3.9. The core packages to install are PyTorch 1.* and PyTorch3D. 
+The script below creates a Conda environment with Python==3.9. The core packages to install are PyTorch 2.* and PyTorch3D (e.g. 0.7.5). 
 
 ```bash
 bash setup.sh
