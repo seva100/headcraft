@@ -1,11 +1,10 @@
 import sys
 sys.path.append('.')
-sys.path.append('..')    # NOTE: careful!
+sys.path.append('..')
 
 import os
-# os.environ['LD_LIBRARY_PATH'] = '/rhome/asevastopolsky:' + os.environ['LD_LIBRARY_PATH']
-os.environ['CUDA_HOME'] = '/usr/local/remote/cuda-11.2'
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# os.environ['LD_LIBRARY_PATH'] = '/rhome/asevastopolsky:' + os.environ['LD_LIBRARY_PATH']    # might be required to load the extensions
+# os.environ['CUDA_HOME'] = '/usr/local/remote/cuda-11.2'
 
 import torch.multiprocessing
 torch.multiprocessing.set_sharing_strategy('file_system')    # a fix for the "OSError: too many files" exception

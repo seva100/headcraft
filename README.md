@@ -156,7 +156,7 @@ Training of the generative model is done with the `stylegan2-ada-lightning` repo
 
 ```bash
 cd stylegan-ada-lightning
-python trainer/train_stylegan.py
+CUDA_HOME=<your cuda location> python trainer/train_stylegan.py
 ```
 
 See [stylegan2-ada-lightning](https://github.com/nihalsid/stylegan2-ada-lightning) for more detail.
