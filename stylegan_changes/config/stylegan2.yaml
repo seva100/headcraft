@@ -1,0 +1,62 @@
+dataset_path: data/ffhq
+
+experiment: fast_dev
+seed: null
+seed: null
+save_epoch: 10
+sanity_steps: 1
+max_epoch: 1000
+scheduler: null
+val_check_percent: 1.0
+val_check_interval: 1
+resume: null
+# limit_train_batches: 4000
+limit_train_batches: 8000
+
+# num_mapping_layers: 2
+num_mapping_layers: 4    # correction
+
+lr_g: 0.002
+# lr_d: 0.00235
+lr_d: 0.001
+lazy_gradient_penalty_interval: 16
+lazy_path_penalty_after: 0
+lazy_path_penalty_interval: 4
+latent_dim: 512
+# lambda_gp: 0.0256
+# lambda_gp: 1.0
+lambda_gp: 4.0
+# lambda_gp: 16.0
+lambda_plp: 2
+# lambda_plp: 8
+# ada_start_p: 0.  #to disable set to -1
+ada_start_p: -1.  #to disable set to -1
+ada_target: 0.6
+ada_interval: 4
+ada_fixed: False
+generator: stylegan2
+
+image_size: 256
+# num_eval_images: 64
+num_eval_images: 1000
+num_vis_images: 16
+# eval_noise_mode: none    # change to const to enable constant noise during training. 
+#                          # 'const' highly affects sharpness and FID/KID and 'none' gives blurrier but more consistent results
+eval_noise_mode: const    # change to const to enable constant noise during training. 
+                          # 'const' highly affects sharpness and FID/KID and 'none' gives blurrier but more consistent results
+# batch_size: 4
+# batch_gpu: 4
+# num_workers: 32
+batch_size: 2
+batch_gpu: 2
+num_workers: 8
+
+# batch_gpu: null
+
+wandb_main: False
+suffix: ''
+
+hydra:
+  output_subdir: null # Disable saving of config files. We'll do that ourselves.
+  run:
+    dir: .

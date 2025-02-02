@@ -1,0 +1,3 @@
+[submodule "stylegan2-ada-lightning"]
+	path = stylegan2-ada-lightning
+	url = https://github.com/nihalsid/stylegan2-ada-lightning.git

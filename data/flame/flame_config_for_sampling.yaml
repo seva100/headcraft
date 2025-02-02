@@ -1,0 +1,30 @@
+
+# Dataset
+# batch_size: 8
+batch_size: 1
+num_workers: 0
+shuffle: True
+
+# Image Sizes
+# image_size: 512
+image_size: 218,178
+# image_size: 218
+deca_size: 224
+
+# Flame Params
+# shape_params: 100
+shape_params: 300
+tex_params: 50
+# expression_params: 50
+expression_params: 100
+camera_params: 3
+pose_params: 6
+light_params: 27
+jaw_type: 'aa'   # default use axis angle, another option: euler. Note that: aa is not stable in the beginning
+flame_param_list: ['shape', 'tex', 'expression', 'pose', 'camera', 'light']
+
+
+# Paths
+# flame_model_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/generic_model.pkl'
+flame_model_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/flame2023.pkl'
+tex_space_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/FLAME_texture.npz'
