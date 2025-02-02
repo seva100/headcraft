@@ -1,4 +1,4 @@
-# conda create -n headcraft python==3.9
+conda create -n headcraft python==3.9
 
 source /rhome/asevastopolsky/miniconda3/etc/profile.d/conda.sh    # to be able to activate conda env in a bash script
 
@@ -9,7 +9,6 @@ pip install numpy==1.23     # this version is needed for chumpy to work correctl
 pip install jupyter \
     pymeshlab \
     trimesh \
-    open3d \
     imageio \
     trimesh \
     einops \
@@ -37,7 +36,7 @@ pip install torch torchvision torchaudio \
 
 FORCE_CUDA=1 \
     CUDA_HOME=/usr/local/remote/cuda-11.8 \
-    pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable"
+    pip install "git+https://github.com/facebookresearch/pytorch3d.git@stable"    # this might take up to 1h.
 
 # stylegan2-ada-pytorch
 # These requirements can be ommited if you're not using generation (train or inference).
@@ -72,3 +71,18 @@ pip install ballpark \
 
 pip install scipy==1.11.1    # for cleanfid with more than 2048 images
                              # https://github.com/GaParmar/clean-fid/issues/53 
+
+pip install open3d
+
+# alternative way is to install Open3D from source:
+# pip install cmake
+# git clone https://github.com/isl-org/Open3D
+# mkdir build
+# cd build
+# cmake ..
+
+# nproc=1    # specify according to the number of CPU cores and available RAM
+# make -j$(nproc)    # will take significant number of minutes, even when running multi-threaded
+# make install-pip-package
+
+# can rm -r Open3D if needed

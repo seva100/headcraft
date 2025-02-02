@@ -37,6 +37,9 @@ The script below creates a Conda environment with Python==3.9. The core packages
 
 ```bash
 bash setup.sh
+
+# in case of the successful installation, do:
+conda activate headcraft
 ```
 
 The created environment should also work for training the StyleGAN model on the HeadCraft registrations with [stylegan2-ada-lightning](https://github.com/nihalsid/stylegan2-ada-lightning) repo included as a submodule. 
@@ -120,10 +123,7 @@ python headcraft/generation/animate.py \
 
 We train HeadCraft on UV maps of displacements for the FLAME template. The UV maps are constructed for a set of 3D scans. In particular, we used [NPHM dataset](https://github.com/SimonGiebenhain/NPHM/blob/main/dataset/README.md). Please download the dataset by accepting the license agreement and extract the scans into a folder `dataset`. The provided code could also be applied to other datasets such as [FaceVerse](https://github.com/LizhenWangT/FaceVerse-Dataset/) -- the only data required would be the 3D scans (+ 3D landmarks for FLAME fitting) for each of them; also, they must be aligned with the FLAME coordinate system and typical placement of FLAME models, scaled 4x (NPHM convention). Our working coordinate system is the same as NPHM convention but the heads are scaled 30x relative to that (i.e. 120x w.r.t. to the standard FLAME scale).
 
-<!-- To fit FLAME to each of the scans, TODO. Note that the FLAME fitting code depends on the fork of the original [flame-fitting](todo) repository available [here](todo) that needs to be cloned as a submodule in `headcraft/registration/flame-fitting`. -->
-
 We assume that FLAME has been prefitted to each of the scans.
-<!-- (one can use some FLAME tracker to achieve that [the link](FLAME landmark fitting code)). -->
 For NPHM scans, we provide the processed registrations at [the link](https://drive.google.com/drive/folders/1vMq4GeHlSq7ycYSzPxdCTF4n8tY7jt_M?usp=sharing) (please sign the NPHM license agreement before downloading). This includes: 
 
 * FLAME fits (`flame.ply` files)

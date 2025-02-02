@@ -22,7 +22,6 @@ from pytorch3d.structures import Meshes
 from pytorch3d.io import load_objs_as_meshes, load_ply, save_ply
 
 import sys
-# sys.path.insert(0, '/rhome/asevastopolsky/Downloads/stylegan2-ada-lightning-v2')    # TODO replace with the submodule path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'stylegan2-ada-lightning'))    # submodule path
 
 from model.generator import Generator
@@ -184,10 +183,6 @@ def uv_map_to_3d(uvmap,
 
     out = sample_map_with_coords(uvmap, dense_vertex_uvs_custom_layout, mode='bilinear')
 
-    print('out:', out)
-    
-    # out[ver_subdiv_belong_inner_mouth] = 0
-
     mesh_raw_p3d = Meshes(verts=[torch.tensor(dense_uvs_custom_layout_verts_upd + out).to(device).float()],
                           faces=[torch.tensor(dense_uvs_custom_layout_faces_upd).to(device)])
     if not smooth_seam:
@@ -275,20 +270,6 @@ if __name__ == '__main__':
     ckpt_path = args.ckpt_path
     ckpt_path_ema = args.ckpt_path_ema
 
-    # if args.uv_layout_type == 'standard_layout':
-    #     from trainer.train_stylegan import StyleGAN2Trainer
-    # elif args.uv_layout_type == 'custom_layout_v1':
-    #     from trainer.train_stylegan_uv2offset import StyleGAN2Trainer
-    # elif args.uv_layout_type == 'custom_layout_v2':
-    #     from trainer.train_stylegan_uv2offset_layout_v2 import StyleGAN2Trainer
-    # elif args.uv_layout_type == 'custom_layout_v3':
-    #     from trainer.train_stylegan_uv2offset_layout_v2 import StyleGAN2Trainer
-
-    # if args.uv_layout_type == 'standard_layout':
-    #     from trainer.train_stylegan import StyleGAN2Trainer
-    # elif args.uv_layout_type == 'custom_layout':
-    #     from trainer.train_stylegan_uv2offset_layout_v2 import StyleGAN2Trainer
-
     from trainer.train_stylegan import StyleGAN2Trainer
 
     model = StyleGAN2Trainer.load_from_checkpoint(ckpt_path)
@@ -303,17 +284,6 @@ if __name__ == '__main__':
     _ = model.G.eval()
     model = model.to(args.device)
 
-    # if args.uv_layout_type == 'standard_layout':
-    #     noise_type = 'const'
-    # elif args.uv_layout_type == 'custom_layout_v1':
-    #     noise_type = 'const-none'    # TODO change to const-none-custom-layout-v1
-    # elif args.uv_layout_type == 'custom_layout_v2':
-    #     noise_type = 'const'    # we're doing two passes in this case: one with const and one with none -- and blending the result.
-    #     # noise_type = 'none'    # NOTE DEBUG
-    # elif args.uv_layout_type == 'custom_layout_v3':
-    #     noise_type = 'const'    # we're doing two passes in this case: one with const and one with none -- and blending the result.
-    # else:
-    #     raise ValueError(f'Unknown UV layout type: {args.uv_layout_type}')
     noise_type = 'const'
 
     if args.to_3d:
@@ -324,13 +294,6 @@ if __name__ == '__main__':
         if orig_flame_tri_uvs_fn is None:
             orig_flame_tri_uvs_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'flame', 'flame_triangle_uvs.npy')
         if custom_layout_mesh_fn is None:
-            # if args.uv_layout_type == 'custom_layout_v1':
-            #     # custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'flame', 'flame_uv_mod.obj')
-            #     custom_layout_mesh_fn =  '/rhome/asevastopolsky/source/uv-to-offset/data/flame_uv_mod1.obj'    #TODO temporarily hardcoded, replace with the proper path!
-            # elif args.uv_layout_type == 'custom_layout_v2':
-            #     custom_layout_mesh_fn =  '/rhome/asevastopolsky/source/uv-to-offset/data/custom_seam2_uv_transformed.obj'    #TODO temporarily hardcoded, replace with the proper path!
-            # elif args.uv_layout_type == 'custom_layout_v3':
-            #     custom_layout_mesh_fn =  '/rhome/asevastopolsky/source/uv-to-offset/data/custom_seam3_uv_transformed.obj'
             custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'flame_uv_mod.obj')
         orig_flame_tri_uvs = np.load(orig_flame_tri_uvs_fn)
         
@@ -343,7 +306,6 @@ if __name__ == '__main__':
         orig_flame_faces = mod_flame_mesh.faces_packed().cpu().data.numpy()
 
         # loading sample subdivided ver, faces, triangle UVs
-        #TODO replace with the paths from the data folder that we're going to provide
         uv_tri_subdiv = np.load(os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'template_decim_uv.npy'))
         faces_subdiv = np.load(os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'template_decim_faces.npy'))
         ver_subdiv = np.load(os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'template_decim_ver.npy'))    # not using vertices per se, that's just for the calculate the number of them
@@ -370,15 +332,6 @@ if __name__ == '__main__':
         n_dilate_iter = 10
         for _ in range(n_dilate_iter):
             seam_ver_mask = dilate_vertex_mask(dense_uvs_custom_layout_edges_upd, seam_ver_mask)
-        
-        # if args.uv_layout_type == 'custom_layout_v1':
-        #     uv_mask_inner_mouth = imageio.imread('/rhome/asevastopolsky/source/uv-to-offset/data/flame_inner_mouth_custom_layout1.png')    #TODO replace with the proper path!
-        #     uv_mask_inner_mouth = uv_mask_inner_mouth.astype(float) / 255  
-        # elif args.uv_layout_type == 'custom_layout_v2':
-        #     # uv_mask_inner_mouth = imageio.imread('/rhome/asevastopolsky/source/uv-to-offset/data/flame_inner_mouth_custom_layout2.png')
-        #     uv_mask_inner_mouth = np.zeros((256, 256, 3), dtype=float)
-        # elif args.uv_layout_type == 'custom_layout_v3':
-        #     uv_mask_inner_mouth = np.zeros((256, 256, 3), dtype=float)
 
         uv_mask_inner_mouth = np.zeros((256, 256, 3), dtype=float)
     
@@ -491,27 +444,6 @@ if __name__ == '__main__':
                                 expression_params=exp,
                                 pose_params=pose)[0].cpu().data.numpy()
                 
-                # dense_uvs_orig_flame_ver_inds = flame_faces[dense_uvs_orig_flame_faces] 
-                # dense_uvs_orig_flame_ver = novel_ver[dense_uvs_orig_flame_ver_inds]
-
-                # novel_ver_subdiv = (
-                #     (dense_uvs_orig_flame_ver[:, 0] * dense_uvs_orig_flame_bary[:, [0]]
-                #     + dense_uvs_orig_flame_ver[:, 1] * dense_uvs_orig_flame_bary[:, [1]]
-                #     + dense_uvs_orig_flame_ver[:, 2] * dense_uvs_orig_flame_bary[:, [2]])
-                #     /
-                #     (dense_uvs_orig_flame_bary[:, [0]]
-                #     + dense_uvs_orig_flame_bary[:, [1]]
-                #     + dense_uvs_orig_flame_bary[:, [2]])
-                # )
-
-                # dense_uvs_custom_layout_verts_upd = novel_ver_subdiv
-
-                # novel_ver_subdiv = consistent_subdiv(novel_ver, flame_faces, 
-                #                                     #  n_ver_subdiv, 
-                #                                      dense_uvs_custom_layout_verts_upd.shape[0],
-                #                                     #  faces_subdiv, dense_uvs_orig_flame_faces, dense_uvs_orig_flame_bary)
-                #                                      dense_uvs_custom_layout_faces_upd, dense_uvs_orig_flame_faces, dense_uvs_orig_flame_bary)
-
                 novel_ver_subdiv = consistent_subdiv(novel_ver, flame_faces, 
                                                     #  n_ver_subdiv, 
                                                      n_ver_subdiv,
@@ -549,7 +481,6 @@ if __name__ == '__main__':
                 
                 dense_uvs_custom_layout_verts_upd = dense_uvs_custom_layout_verts_upd.copy() * args.gt_scaling_coef
             
-            # if args.uv_layout_type in ('custom_layout_v3',):
             if args.uv_layout_type in ('custom_layout',):
                 # this block works for our layout that consists of a separate scalp and face part
                 pred = np.concatenate([pred[:, :, :3], pred[:, :, 3:]], axis=1)    # (h, w, 6) -> (h, 2*w, 3)
