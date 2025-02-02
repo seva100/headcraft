@@ -197,7 +197,7 @@ if __name__ == '__main__':
     if orig_flame_tri_uvs_fn is None:
         orig_flame_tri_uvs_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'flame', 'flame_triangle_uvs.npy')
     if custom_layout_mesh_fn is None:
-        custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'flame', 'flame_uv_mod.obj')
+        custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'flame_uv_mod.obj')
     orig_flame_tri_uvs = np.load(orig_flame_tri_uvs_fn)
 
     mod_flame_mesh = load_objs_as_meshes([custom_layout_mesh_fn], device='cpu')

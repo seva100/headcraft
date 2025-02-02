@@ -331,7 +331,7 @@ if __name__ == '__main__':
             #     custom_layout_mesh_fn =  '/rhome/asevastopolsky/source/uv-to-offset/data/custom_seam2_uv_transformed.obj'    #TODO temporarily hardcoded, replace with the proper path!
             # elif args.uv_layout_type == 'custom_layout_v3':
             #     custom_layout_mesh_fn =  '/rhome/asevastopolsky/source/uv-to-offset/data/custom_seam3_uv_transformed.obj'
-            custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'flame', 'flame_uv_mod.obj')
+            custom_layout_mesh_fn = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')), 'data', 'layout', 'flame_uv_mod.obj')
         orig_flame_tri_uvs = np.load(orig_flame_tri_uvs_fn)
         
         mod_flame_mesh = load_objs_as_meshes([custom_layout_mesh_fn], device='cpu')
