@@ -25,6 +25,5 @@ flame_param_list: ['shape', 'tex', 'expression', 'pose', 'camera', 'light']
 
 
 # Paths
-# flame_model_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/generic_model.pkl'
-flame_model_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/flame2023.pkl'
-tex_space_path: '/rhome/asevastopolsky/source/uv-to-offset/data/flame/FLAME_texture.npz'
+flame_model_path: 'PATH/TO/flame2023.pkl'
+tex_space_path: 'PATH/TO/FLAME_texture.npz'
