@@ -25,5 +25,5 @@ flame_param_list: ['shape', 'tex', 'expression', 'pose', 'camera', 'light']
 
 
 # Paths
-flame_model_path: 'PATH/TO/flame2023.pkl'
-tex_space_path: 'PATH/TO/FLAME_texture.npz'
+flame_model_path: 'flame2023.pkl'    # might require specifying absolute paths: <project_root>/data/flame/flame2023.pkl
+tex_space_path: 'FLAME_texture.npz'    # might require specifying absolute paths: <project_root>/data/flame/FLAME_texture.npz
