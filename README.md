@@ -53,6 +53,7 @@ cp stylegan_changes/model/generator.py stylegan2-ada-lightning/model/generator.p
 ```
 
 We attach the minimal FLAME implementation in `headcraft/modules/flame`. To be able to use it, please register at `https://flame.is.tue.mpg.de/` and sign the FLAME license agreement. 
+In addition, after signing the agreement for FLAME, please download the FLAME files `flame2023.pkl` (or a file with the same structure defining the model basis) and `FLAME_texture.npz` and save them to `data/flame`.
 
 ## Inference
 
